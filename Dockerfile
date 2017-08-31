@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 	golang \
 	libboost-all-dev && \
 	\
-	git clone --branch tags/v0.10.3.1 https://github.com/monero-project/monero.git && \
+	git clone --branch v0.10.3.1 https://github.com/monero-project/monero.git && \
 	cd monero && \
 	git checkout --branch tags/v0.10.3.1 -b v0.10.3.1 && \
 	cmake -DBUILD_SHARED_LIBS=1 . && \
