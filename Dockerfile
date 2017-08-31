@@ -2,9 +2,7 @@ FROM ubuntu:16.04
 #RUN useradd -s / strat
 
 RUN apt-get update && apt-get install -y \
-  software-properties-common
-
-RUN apt-get update && apt-get install -y \
+    software-properties-common \
 	git \
 	cmake \
 	build-essential \
@@ -29,7 +27,10 @@ RUN apt-get update && apt-get install -y \
 	cd monero-stratum && \
 	cmake .  && \
 	make && \
-	go build -o pool main.go 
+	go build -o pool main.go  && \
+    \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #USER strat
 WORKDIR /monero-stratum
@@ -37,4 +38,4 @@ WORKDIR /monero-stratum
 #ENTRYPOINT  ["./pool /configs/config.json"]
 
 
-#docker run -it -v /$(pwd)/configs:/configs stratum-monero ./pool /configs/config.json
+#docker run -v /$(pwd)/configs:/configs -p 3333:3333 -p 1111:1111 -p 8082:8082 stratum-monero ./pool /configs/config.json
